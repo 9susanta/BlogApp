@@ -27,7 +27,7 @@ namespace BlogApp.Concrete
                     Newspost newsPost = new Newspost();
                     newsPost.EnglishTitle = objclsPost.EnglishTitle;
                     newsPost.OdiaTitle = objclsPost.OdiaTitle;
-                    newsPost.EngShortDesc = objclsPost.EngShortDesc;
+                    newsPost.EngShortDesc = objclsPost.ODShortDesc;
                     newsPost.OdshortDesc = objclsPost.ODShortDesc;
                     newsPost.SeoMeta = objclsPost.SeoMeta;
                     newsPost.Tags = objclsPost.Tags;

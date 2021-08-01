@@ -19,7 +19,7 @@
                             <div class="col-lg-7 col-sm-12 col-md-8">
                                 <div class="form-group">
                                     <label for="txtRole">Role Name</label>
-                                    <input type="text" id="txtRole" ng-model="RoleName" class="form-control nw-text" placeholder="Enter Role Name Here" />
+                                    <input type="text" id="txtRole" ng-model="roleName" class="form-control nw-text" placeholder="Enter Role Name Here" />
                                 </div>
                             </div>
                         </div>
@@ -129,11 +129,9 @@
         newsportalApp.controller('RolesArchiveCtrl', ['$scope','$window','Roles',
             function ($scope, $window, Roles) {
 
-            $scope.isSearching = false;
-
-            $scope.page = 0;
-            $scope.pagesCount = 0;
-
+                $scope.isSearching = false;
+                $scope.page = 0;
+                $scope.pagesCount = 0;
                 $scope.search = function (page) {
                 loaderShow();
                 page = page || 0;
@@ -156,23 +154,23 @@
                 }
                 $scope.Add = function () {
                     loaderShow();
-                var obj = {};
-                if (typeof ($scope.RoleName) == "undefined") {
-                    $('#btnSave').blur();
-                    loaderHide();
-                    alertify.alert('Role Name', 'Please Enter Role Name!', function () { document.querySelector("#txtRole").focus(); });
-                    return;
-                }
-                obj.RoleName = $scope.RoleName;
+                    var obj = {};
+                   if(typeof ($scope.RoleName) == "undefined") {
+                     $('#btnSave').blur();
+                     loaderHide();
+                     alertify.alert('Role Name', 'Please Enter Role Name !', function () { document.querySelector("#txtRole").focus(); });
+                     return;
+                   }
+                    obj.RoleName = $scope.RoleName;
                     Roles.save(JSON.stringify(obj)).$promise.then(function (data) {
-                        loaderHide();
-                    if (data.msg != undefined) {
+                    loaderHide();
+                    if(data.msg != undefined) {
                         $('#btnSave').blur();
                         alertify.alert('Role Name', data.msg + ' !', function () { document.querySelector("#txtRole").focus(); });
                         return
                     }
                     $scope.search();
-                    $scope.RoleName = "";
+                    $scope.roleName = "";
                 });
 
             };
@@ -182,24 +180,25 @@
             $scope.EditItem = {};
             $scope.Edit = function (index) {
                 $scope.Data[index].EditMode = true;
-                $scope.EditItem.RoleName = $scope.Data[index].RoleName;
+                $scope.EditItem.RoleName = $scope.Data[index].roleName;
 
             };
             $scope.Cancel = function (index) {
-                $scope.Data[index].RoleName = $scope.EditItem.RoleName;
+                $scope.Data[index].RoleName = $scope.EditItem.roleName;
                 $scope.Data[index].EditMode = false;
                 $scope.EditItem = {};
             };
                 $scope.Update = function (index) {
-                    loaderShow();
+                debugger;
+                loaderShow();
                 var role = $scope.Data[index];
                 var _role = {};
-                if (role.RoleName == "") {
+                if (role.roleName == "") {
                     alertify.alert('Role Name', 'Please Enter Role Name!');
                     return;
                 }
-                _role.RoleId = role.RoleId;
-                _role.RoleName = role.RoleName
+                _role.roleId = role.roleId;
+                _role.roleName = role.roleName
                     Roles.update(JSON.stringify(_role)).$promise.then(function (data) {
                         loaderHide();
                     if (data.msg != undefined) {
@@ -216,17 +215,15 @@
                 $scope.Delete = function (RoleId) {
                     if ($window.confirm("Do you want to delete this row?")) {
                         loaderShow();
-                    var obj = {};
-                    obj.Id = RoleId;
-
+                        var obj = {};
+                        obj.RoleId = RoleId;
                         Roles.delete(JSON.stringify(obj)).$promise.then(function (data) {
-                            loaderHide();
+                        loaderHide();
                         $scope.Data = $scope.Data.filter(function (_role) {
-                            return _role.RoleId !== RoleId;
+                            return _role.roleId !== RoleId;
                         })
                         $scope.search();
                     });
-
                 }
             };
         }]

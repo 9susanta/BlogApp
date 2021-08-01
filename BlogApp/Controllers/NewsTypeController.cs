@@ -1,6 +1,7 @@
 ﻿using BlogApp.Common;
 using BlogApp.Concrete;
 using BlogApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BlogApp.Controllers
 {
-    public class NewsTypeController : BaseController
+    public class NewsTypeController:Controller
     {
         private readonly IOperation<Tblnewstype> _newsType;
         private readonly IclsNewsType _clsNewsType;
@@ -52,7 +53,7 @@ namespace BlogApp.Controllers
             return null;
         }
         [HttpPost]
-        public JsonResult InsertNewsType(NewsType _newsTyp)
+        public JsonResult InsertNewsType([FromBody]NewsType _newsTyp)
         {
             try
             {
@@ -77,7 +78,7 @@ namespace BlogApp.Controllers
             return null;
         }
         [HttpPost]
-        public JsonResult UpdateNewsType(NewsType _newsTyp)
+        public JsonResult UpdateNewsType([FromBody] NewsType _newsTyp)
         {
             try
             {
@@ -111,15 +112,15 @@ namespace BlogApp.Controllers
 
         }
         [HttpPost]
-        public JsonResult DeleteNewsType(int Id)
+        public JsonResult DeleteNewsType([FromBody] NewsType _newsTyp)
         {
             try
             {
-                Tblnewstype newstyp = _newsType.GetByID(x => x.Id == Id);
+                Tblnewstype newstyp = _newsType.GetByID(x => x.Id == _newsTyp.NewsTypeId);
                 newstyp.IsDeleted = true;
                 _newsType.Edit(newstyp);
                 _newsType.Save();
-                return Json(Id);
+                return Json(_newsTyp.NewsTypeId);
             }
             catch (Exception ex)
             {

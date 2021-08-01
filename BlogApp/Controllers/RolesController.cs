@@ -53,7 +53,7 @@ namespace BlogApp.Controllers
             return null;
         }
         [HttpPost]
-        public JsonResult InsertRole(clsRole _role)
+        public JsonResult InsertRole([FromBody] clsRole _role)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace BlogApp.Controllers
 
         }
         [HttpPost]
-        public JsonResult UpdateRole(clsRole _role)
+        public JsonResult UpdateRole([FromBody]clsRole _role)
         {
             try
             {
@@ -98,15 +98,15 @@ namespace BlogApp.Controllers
             return null;
         }
         [HttpPost]
-        public JsonResult DeleteRole(int Id)
+        public JsonResult DeleteRole([FromBody] clsRole role)
         {
             try
             {
-                Tblrole rigt = _roles.GetByID(x => x.RoleId == Id);
+                Tblrole rigt = _roles.GetByID(x => x.RoleId == role.RoleId);
                 rigt.IsDeleted = true;
                 _roles.Edit(rigt);
                 _roles.Save();
-                return Json(Id);
+                return Json(role.RoleId);
             }
             catch (Exception ex)
             {

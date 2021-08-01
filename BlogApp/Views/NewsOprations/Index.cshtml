@@ -23,30 +23,31 @@
                     </div>
                     <div class="col-lg-6 col-12 col-md-12" ng-hide="IsPhoto">
                         <label>News Tag</label>
-                        <input type="text" id="txtNewTag" placeholder="e.g ଅପରାଧ,ଭୁବନେଶ୍ୱର,ଡକାୟତି" data-role="tagsinput" class="form-control nw-text form-control-sm" ng-model="NewsTag" />
+                        <input type="text" id="txtNewTag" placeholder="e.g India, Pakistan, Army" data-role="tagsinput" class="form-control nw-text form-control-sm" ng-model="NewsTag" />
                     </div>
                 </div>
                 <hr />
                 <div class="row">
                     <div class="col-lg-6 col-12 col-md-12">
                         <label>English Title</label>
-                        <input type="text" id="txtEngTitle" placeholder="e.g Elder Brother Kills Younger Brother in Heart of the City" class="form-control nw-text form-control-sm" ng-model="EngTitle" />
+                        <input type="text" id="txtEngTitle" placeholder="e.g India will Help Nepal in Asia" class="form-control nw-text form-control-sm" ng-model="EngTitle" />
                     </div>
                     <div class="col-lg-6 col-sm-12 col-md-12">
-                        <label>Odia Title</label>
-                        <input type="text" id="txtOdiaTitle" placeholder="e.g ସହର ମଝିରେ ବଡ ଭାଇ ହତ୍ୟା କଲା ସାନ ଭାଇ କୁ" class="form-control nw-text form-control-sm" ng-model="OdiaTitle" />
+                        <label>SEO Meta</label>
+                        <input type="text" id="txtSeoMeta" placeholder="e.g India Chaina to Contest in UN" class="form-control nw-text form-control-sm" ng-model="SeoMeta" />
                     </div>
+                    @*<div class="col-lg-6 col-sm-12 col-md-12">
+                     <label>Odia Title</label>
+                     <input type="text" id="txtOdiaTitle" placeholder="e.g ସହର ମଝିରେ ବଡ ଭାଇ ହତ୍ୟା କଲା ସାନ ଭାଇ କୁ" class="form-control nw-text form-control-sm" ng-model="OdiaTitle" />
+                    </div>*@
                 </div>
                 <hr />
                 <div class="row">
                     <div class="col-lg-6 col-sm-12 col-md-12" ng-hide="IsPhoto">
-                        <label>Odia Short Desciption</label>
-                        <textarea type="text" id="txtOdiaShortDesc" placeholder="ଦୁଇ ଲାଇନି ରେ ଖବର ବିଷୟରେ କିଛି ଲେଖନ୍ତୁ " class="form-control nw-text form-control-sm" ng-model="OdiaShortDescri"></textarea>
+                        <label>Short Desciption</label>
+                        <textarea type="text" id="txtOdiaShortDesc" placeholder="few lines about the topic " class="form-control nw-text form-control-sm" ng-model="OdiaShortDescri"></textarea>
                     </div>
-                    <div class="col-lg-6 col-sm-12 col-md-12">
-                        <label>SEO Meta</label>
-                        <input type="text" id="txtSeoMeta" placeholder="e.g Murder in bhubanewsar,Brother kills Brother in Odisha,Latest News in odisha" class="form-control nw-text form-control-sm" ng-model="SeoMeta" />
-                    </div>
+                   
                 </div>
                 <hr />
                 <div class="row">
@@ -61,7 +62,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-10 col-md-10 imgContainer">
-                        <img ng-src="~/Uploads/{{Result}}" class="imgheight" ng-hide="showImg" />
+                        <img ng-src="Uploads/{{Result}}" class="imgheight" ng-hide="showImg" />
                         <button class="btn btn-pink text-light np-btn" ng-show="imgshow" ng-click="ImageRemove(Result)"><i class="fas fa-times-circle"></i></button>
                     </div>
                 </div>
@@ -89,7 +90,7 @@
                             <div class="form-group">
                                 <select id="ddlDelay" ng-model="selectedDelay" ng-show="IsSchedule" ng-init="selectedDelay='0'" class="form-control nw-text form-control-sm ml-1">
                                     <option ng-selected="true" value="0">{{DefaultDelay}}</option>
-                                    <option value="{{val.Id}}" ng-repeat="val in Delay">{{val.Time}}</option>
+                                    <option value="{{val.id}}" ng-repeat="val in Delay">{{val.time}}</option>
                                 </select>
                             </div>
                         </div>
@@ -142,7 +143,7 @@
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <h3 class="text-pink header-title">{{popUpNewsobj.OdiaTitle}}</h3>
+                                                <h3 class="text-pink header-title">{{popUpNewsobj.EnglishTitle}}</h3>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -159,7 +160,7 @@
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-lg-12">
-                                                <img class="imgheight" ng-src="~/Uploads/{{popUpNewsobj.ImageName}}" alt="Images">
+                                                <img class="imgheight" ng-src="Uploads/{{popUpNewsobj.ImageName}}" alt="Images">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -369,7 +370,7 @@
                 $('#btnUpload').click(function () {
                     alertify.confirm('Are you sure to Upload this Image ?').set('onok', function (closeEvent) {
                         $('#fileUploader').click();
-                    });
+                    }).setHeader('Upload');
                 });
                 $scope.RoleItems = {};
                 $scope.HeaderImage = "";
@@ -389,30 +390,30 @@
                         $scope.IsEdit = true;
                         NewsPostFc.query({ Id: NewsId }).$promise.then(function (response) {
                             var data = response._newspost;
-                            $scope.EngTitle = data.EnglishTitle;
-                            $scope.OdiaTitle = data.OdiaTitle;
-                            $scope.OdiaShortDescri = data.ODShortDesc;
-                            $scope.SeoMeta = data.SeoMeta;
-                            $('#txtNewTag').tagsinput('add', data.Tags);
-                            $scope.HeaderImage = data.HeaderImageName;
-                            $scope.Result = data.HeaderImageName;
-                            $scope.selectedCatagory = data.CategoryId.toString();
-                            $scope.IsApprove = data.IsReviewed;
+                            $scope.EngTitle = data.englishTitle;
+                            //$scope.OdiaTitle = data.OdiaTitle;
+                            $scope.OdiaShortDescri = data.odshortDesc;
+                            $scope.SeoMeta = data.seoMeta;
+                            $('#txtNewTag').tagsinput('add', data.tags);
+                            $scope.HeaderImage = data.headerImageName;
+                            $scope.Result = data.headerImageName;
+                            $scope.selectedCatagory = data.categoryId.toString();
+                            $scope.IsApprove = data.isReviewed;
                             $scope.imgshow = true;
                             $scope.showImg = false;
                             $scope.oncatchange($scope.selectedCatagory);
-                            if (data.IsReviewed != true) {
+                            if (data.isReviewed != true) {
                                 $scope.IsApproved = true;
                             }
                             else {
                                 $scope.IsScheduleDisc = false;
                             }
-
-                            if (data.CategoryId != 10) {
+                            debugger;
+                            if (data.categoryId != 10) {
                                 try {
                                     setTimeout(function () {
                                          //tinymce.get('txtNewsContent').setContent(data.ODContent);
-                                        tinymce.activeEditor.setContent(data.ODContent);
+                                        tinymce.activeEditor.setContent(data.odcontent);
                                     }, 3000);
 
                                 } catch (ex) {
@@ -476,7 +477,7 @@
 
                             });
                         });
-                    });
+                    }).setHeader('Confirm');
                 }
                 $scope.getCategory = function () {
                     NewsPostFc.getCategories().$promise.then(function (data) {
@@ -488,6 +489,7 @@
                     });
                 };
                 $scope.ImageRemove = function (ImagePath) {
+                    debugger;
                     alertify.confirm('Are you sure to delete this Image ?').set('onok', function (closeEvent) {
                         loaderShow();
                         var obj = {};
@@ -500,7 +502,7 @@
                         }, function (error) {
 
                         });
-                    });
+                    }).setHeader('Delete');
                 }
                 $scope.SavePost = function () {
                     alertify.confirm('Have you checked the all your spelling ? if verify once it will take only 1 minute').set('onok', function (closeEvent) {
@@ -508,7 +510,7 @@
                     var obj = {};
                     obj.PostContent = $scope.PostContent;
                     obj.EnglishTitle=$scope.popUpNewsobj.EnglishTitle;
-                    obj.OdiaTitle=$scope.popUpNewsobj.OdiaTitle = $scope.OdiaTitle;
+                    obj.OdiaTitle = $scope.popUpNewsobj.EnglishTitle;
                     obj.ODShortDesc=$scope.popUpNewsobj.ODShortDesc;
                     obj.SeoMeta=$scope.popUpNewsobj.SeoMeta;
                     obj.Tags = $scope.popUpNewsobj.Tags;
@@ -544,7 +546,7 @@
                             });
                         });
                         }
-                    });
+                    }).setHeader('Upload');
                 }
                 $scope.Add = function () {
                     var txtEditorData=tinyMCE.get('txtNewsContent').getContent();
@@ -566,12 +568,12 @@
                         alertify.alert('English Title', 'Please Enter English Title!', function () { document.querySelector("#txtEngTitle").focus(); });
                         return false;
                     }
-                    if ($scope.OdiaTitle == "" || typeof ($scope.OdiaTitle) == "undefined") {
+                    //if ($scope.OdiaTitle == "" || typeof ($scope.OdiaTitle) == "undefined") {
 
-                            buttonUnfocus();
-                            alertify.alert('Odia Title', 'Please Enter Odia Title!', function () { document.querySelector("#txtOdiaTitle").focus(); });
-                            return false;
-                    }
+                    //        buttonUnfocus();
+                    //        alertify.alert('Odia Title', 'Please Enter Odia Title!', function () { document.querySelector("#txtOdiaTitle").focus(); });
+                    //        return false;
+                    //}
                     if ($scope.OdiaShortDescri == "" || typeof ($scope.OdiaShortDescri) == "undefined") {
                       if ($scope.IsPhoto == false) {
                         buttonUnfocus();
@@ -603,7 +605,7 @@
                     }
                     $scope.PostContent = txtEditorData;
                     $scope.popUpNewsobj.EnglishTitle = $scope.EngTitle;
-                    $scope.popUpNewsobj.OdiaTitle = $scope.OdiaTitle;
+                    $scope.popUpNewsobj.OdiaTitle = $scope.EngTitle;
                     $scope.popUpNewsobj.ODShortDesc = $scope.OdiaShortDescri;
                     $scope.popUpNewsobj.SeoMeta = $scope.SeoMeta;
                     $scope.popUpNewsobj.Tags = $('#txtNewTag').val();
@@ -613,7 +615,7 @@
                     $scope.date = new Date();
                     $scope.Tags = $('#txtNewTag').val().split(',');
 
-                    alertify.confirm('Have you checked the all your spelling ? if verify once it will take only 1 minute').set('onok', function (closeEvent) { $('#modPreview').modal('show'); });
+                    alertify.confirm('Have you checked the all your spelling ? if verify once it will take only 1 minute').set('onok', function (closeEvent) { $('#modPreview').modal('show'); }).setHeader('Sure');
 
                 };
                 $scope.search();
@@ -635,13 +637,13 @@
                             });
                         });
 
-                    });
+                    }).setHeader('Delete');
                 };
                 $scope.UploadFiles = function (files) {
                     $scope.SelectedFiles = files;
                     var NewsId = getParameterByName('NewsId');
                     if (NewsId == null) {
-                        NewsId = 8;
+                        NewsId = 0;
                     }
                     if ($scope.SelectedFiles && $scope.SelectedFiles.length) {
 

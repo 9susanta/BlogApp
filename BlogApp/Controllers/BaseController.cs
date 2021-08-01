@@ -1,4 +1,5 @@
 ﻿using BlogApp.Common;
+using BlogApp.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace BlogApp.Controllers
 {
+    [AuthorizationPrivilegeAttribute]
     public class BaseController : Controller
     {
         protected internal UserSessionModel UserSessionModel { get; private set; }

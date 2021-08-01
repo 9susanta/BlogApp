@@ -14,7 +14,7 @@
                                 <h3 class="ns-headingone">
                                     <a href="#">
                                         <span class="fontweightsix nstitle bg-black">
-                                            ଅନୁସନ୍ଧାନ କରୁଥିବା ବର୍ଗ
+                                            Topic
                                         </span>
                                     </a>
                                 </h3>
@@ -73,7 +73,7 @@
                                         <h3 class="ns-heading">
                                             <a href="#">
                                                 <span class="nstitle bg-pink">
-                                                    ବଡ ଖବର
+                                                    Latest
                                                 </span>
                                             </a>
                                         </h3>
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12 text-center">
-                                        <button class="load btn np-btn bg-teal text-light" ng-disabled="btnlatest" ng-click="LoadMore('Latest')">ଅଧିକ ଖବର ଦେଖନ୍ତୁ...</button>
+                                        <button class="load btn np-btn bg-teal text-light" ng-disabled="btnlatest" ng-click="LoadMore('Latest')">See More...</button>
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12 text-center">
-                                        <button class="load btn np-btn bg-teal text-light" ng-disabled="btnpopular" ng-click="LoadMore('Popular')">ଅଧିକ ଖବର ଦେଖନ୍ତୁ...</button>
+                                        <button class="load btn np-btn bg-teal text-light" ng-disabled="btnpopular" ng-click="LoadMore('Popular')">See More...</button>
                                     </div>
                                 </div>
                             </div>
@@ -139,9 +139,9 @@
         </div>
     </div>
 </div>
-@*@Styles.Render("~/Content/calender")*@
+<link rel="stylesheet" href="~/Scripts/Calender/calender.css" />
 @section scripts
 {
-    @*@Scripts.Render("~/bundles/calendar")
-    @Scripts.Render("~/bundles/top")*@
+    <script src="~/Scripts/Calender/calendar.js"></script>
+    <script src="~/Scripts/Topic/Topic.js"></script>
 }

@@ -48,21 +48,22 @@ newsportalApp.controller('NewsCtrl', ['$scope', '$window', '$location','News',
             newsId = queryData[queryData.length - 2];
         }
         $scope.dataLoad = function () {
-            News.firstQuery({ Id: newsId }).$promise.then(function (data) {
+
+            News.firstQuery({ Id: newsId}).$promise.then(function (data) {
                 if (data !== null) {
                     $scope.btnHide('Latest', JSON.parse(data.latest));
                     $scope.btnHide('Popular', JSON.parse(data.popular));
                     $scope.btnHide('Related', JSON.parse(data.related));
-                    var nextdt = JSON.parse(data.Next);
+                    var nextdt = JSON.parse(data.next);
                     if (nextdt.length>0)
                     {
                         $scope.nextnews = nextdt[0].OdiaTitle;
-                        $scope.nexturl = $scope.url + "/Home/News/" + nextdt[0].NewsType + "/" + nextdt[0].PostedYear + "/" + nextdt[0].PostedMonth + "/" + nextdt[0].Id + "/" + nextdt[0].SlugUrl;
+                        $scope.nexturl = $scope.url + "/article/" + nextdt[0].NewsType + "/" + nextdt[0].PostedYear + "/" + nextdt[0].PostedMonth + "/" + nextdt[0].Id + "/" + nextdt[0].SlugUrl;
                     }
-                    var prevdt = JSON.parse(data.Prev);
+                    var prevdt = JSON.parse(data.prev);
                     if (prevdt.length > 0) {
                         $scope.prevnews = prevdt[0].OdiaTitle;
-                        $scope.prevurl = $scope.url + "/Home/News/" + prevdt[0].NewsType + "/" + prevdt[0].PostedYear + "/" + prevdt[0].PostedMonth + "/" + prevdt[0].Id + "/" + prevdt[0].SlugUrl;
+                        $scope.prevurl = $scope.url + "/article/" + prevdt[0].NewsType + "/" + prevdt[0].PostedYear + "/" + prevdt[0].PostedMonth + "/" + prevdt[0].Id + "/" + prevdt[0].SlugUrl;
                     }
                     $scope.isSearching = false;
                     loaderHide();

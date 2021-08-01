@@ -21,11 +21,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in Data" data-id="{{item.RoleId}}">
+                    <tr ng-repeat="item in Data" data-id="{{item.roleId}}">
                         <td>{{$index+1}}</td>
                         <td>
-                            <span ng-hide="item.EditMode">{{item.RoleName}}</span>
-                            <input type="text" ng-model="item.RoleName" ng-show="item.EditMode" class="form-control" />
+                            <span ng-hide="item.EditMode">{{item.roleName}}</span>
+                            <input type="text" ng-model="item.roleName" ng-show="item.EditMode" class="form-control" />
                         </td>
                         <td>
                             <a class="Edit" href="javascript:;" ng-hide="item.EditMode" ng-click="Edit($index)">Edit</a>

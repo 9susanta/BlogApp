@@ -8,13 +8,10 @@
             <li class="nav-item active">
                 <a class="nav-link text-white" href="@Url.Action("Index","Home")"><i class="fas fa-home"></i></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="@Url.Action("Topic/Latest","Home")">ନୂଆ ଖବର</a>
-            </li>
             @foreach (var item in Model)
             {
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="@Url.Action("Category/"+item.Id+"/"+item.NewsType,"Home")">@item.OdiaName</a>
+                    <a class="nav-link text-white" href="@Url.Action("Index","category",new { categoryId=item.Id,category=item.OdiaName.ToLower()})">@item.OdiaName</a>
                 </li>
             }
         </ul>

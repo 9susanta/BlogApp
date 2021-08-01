@@ -45,7 +45,7 @@
                                     <tr>
                                         <th></th>
                                         <th></th>
-                                        <th scope="row"><input st-search="OdiaTitle" class="form-control-sm" /></th>
+                                        @*<th scope="row"><input st-search="OdiaTitle" class="form-control-sm" /></th>*@
                                         <th><input st-search="EnglishTitle" class="form-control-sm" /></th>
                                         <th></th>
                                         <th></th>
@@ -58,7 +58,7 @@
                                     <tr>
                                         <th>Action</th>
                                         <th>No of View</th>
-                                        <th scope="col">O Title</th>
+                                        @*<th scope="col">O Title</th>*@
                                         <th scope="col">E Title</th>
                                         <th st-sort="IsReviewed">Action</th>
                                         <th scope="col" st-sort="Category">Category</th>
@@ -81,7 +81,7 @@
                                             </a>
                                         </td>
                                         <td scope="row"><strong>{{row.Frequency}}</strong></td>
-                                        <td scope="row">{{row.OdiaTitle}}</td>
+                                        @*<td scope="row">{{row.OdiaTitle}}</td>*@
                                         <td>{{row.EnglishTitle}}</td>
                                         <td><span class="badge badge-pill" ng-class="row.IsReviewed==true?'badge-success':'badge-danger'">{{row.IsReviewed==true?'APPROVED':'PENDING'}}</span></td>
                                         <td>{{row.CategoryOdia}}</td>

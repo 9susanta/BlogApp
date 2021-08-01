@@ -21,7 +21,7 @@ namespace BlogApp.Concrete
             #region comment
             if (!principal.Identity.IsAuthenticated)
             {
-                filterContext.Result = new RedirectResult("~/auth/signin");
+                filterContext.Result = new RedirectResult("~/user/login");
                 return;
             }
             #endregion
@@ -35,6 +35,10 @@ namespace BlogApp.Concrete
             }
             else
             {
+                if (filterContext.ActionDescriptor.EndpointMetadata.Any(em => em.GetType() == typeof(AllowAnonymousAttribute)))
+                {
+                    return;
+                }
                 if (!principal.Identity.IsAuthenticated)
                 {
                     filterContext.Result = new RedirectResult("~/Views/Error/AccessDenied.html");

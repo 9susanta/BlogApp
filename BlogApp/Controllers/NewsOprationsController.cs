@@ -71,20 +71,35 @@ namespace BlogApp.Controllers
                 string path = "";
                 
                 
-                if (HttpContext.Request.Form.Keys.Count>0)
+                if (HttpContext.Request.Form["newsID"].ToString()=="0")
                 {
-                    var i = HttpContext.Request.Form["newsID"].ToString();
-                    
+                    NewsId = _newsOprations.getNewsNextId();
                     FolderName = DateTime.Now.Date.ToString("ddMMyyyy");
-                    path = this._hostEnvironment.WebRootPath+"/Uploads/" + FolderName + "/" + _newsOprations.getNewsNextId();
+                    path = this._hostEnvironment.WebRootPath+"/Uploads/" + FolderName + "/" + NewsId;
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
                     }
+                    else if(Directory.Exists(path))
+                    {
+                        try
+                        {
+                            foreach (var item in Directory.GetFiles(path))
+                            {
+                                FileInfo fi3 = new FileInfo(item);
+                                if (fi3.Exists)
+                                    fi3.Delete();
+                            }
+                        }
+                        catch (Exception)
+                        {
+                        }
+                       
+                    }
                 }
                 else
                 {             
-                    decimal newsID = Convert.ToDecimal(Request.Query["newsID"]);
+                    decimal newsID = Convert.ToDecimal(HttpContext.Request.Form["newsID"].ToString());
                     nps = _newsOprations.GetNewsposts(newsID);
                     string ImageName = "";
                     if (nps != null)
@@ -95,7 +110,7 @@ namespace BlogApp.Controllers
                             NewsId = int.Parse(ImageName.Split('/')[1]);
                     }
                     
-                    path = this._hostEnvironment.WebRootPath+"/ Uploads/" + FolderName + "/" + NewsId;
+                    path = this._hostEnvironment.WebRootPath+"/Uploads/" + FolderName + "/" + NewsId;
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
@@ -106,25 +121,25 @@ namespace BlogApp.Controllers
                 string imgId = DateTime.Now.Hour + "" + DateTime.Now.Minute;
                 
                 
-                    ImageUrl = Path.Combine(path, "Img_" + imgId + ".jpg");
-                    Stream strm = data.Files.FirstOrDefault().OpenReadStream();
-                    int flstatus = GenerateThumbnails(0.2, strm, ImageUrl, 400, 210);
-                    filename = source.FileName;
-                    CreateThumbnail(strm, NewsId, FolderName, imgId);
-                    CreateThumbnail279(strm, NewsId, FolderName, imgId);
-                    CreateThumbnail210(strm, NewsId, FolderName, imgId);
+                 ImageUrl = Path.Combine(path, "Img_" + imgId + ".jpg");
+                 Stream strm = data.Files.FirstOrDefault().OpenReadStream();
+                 int flstatus = GenerateThumbnails(0.2, strm, ImageUrl, 400, 210);
+                // filename = source.FileName;
+                 CreateThumbnail(strm, NewsId, FolderName, imgId);
+                 CreateThumbnail279(strm, NewsId, FolderName, imgId);
+                 CreateThumbnail210(strm, NewsId, FolderName, imgId);
                 
-                if (Request.Query["newsID"] != "0")
+                if (HttpContext.Request.Form["newsID"].ToString() != "0")
                 {
                     string Image = FolderName + "/" + NewsId + "/" + "Img_" + imgId + ".jpg";
                     
-                        decimal newsID = Convert.ToDecimal(Request.Query["newsID"]);
+                        decimal newsID = Convert.ToDecimal(HttpContext.Request.Form["newsID"].ToString());
                         Newspost newsPost = _newsPost.GetByID(x => x.Id == newsID);
                         newsPost.HeaderImageName = Image;
                         newsPost.Thumbnail86 = Image.Replace("Img", "Thumbnail_86x64");
                         newsPost.Thumbnail210 = Image.Replace("Img", "Thumbnail_210x136");
                         newsPost.Thumbnail279 = Image.Replace("Img", "Thumbnail_279x220");
-                        _newsPost.Insert(newsPost);
+                        _newsPost.Edit(newsPost);
                          _newsPost.Save();
                 }
                 return Content(FolderName + "/" + NewsId + "/" + "Img_" + imgId + ".jpg");
@@ -196,7 +211,7 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
-        public JsonResult NewsPost(ClsPost clsPost)
+        public JsonResult NewsPost([FromBody]ClsPost clsPost)
         {
             try
             {
@@ -251,7 +266,7 @@ namespace BlogApp.Controllers
                             {
                                 string category = _newsType.GetByID(x => x.Id == clsPost.CategoryId).NewsType;
                                 var webadrs = _configuration.GetSection("webid");
-                                Task.Factory.StartNew(() => _iapiPlugin.pagePublish(clsPost.OdiaTitle, (webadrs + "/News/" + category + "/" + clsPost.PostedYear + "/" + clsPost.PostedMonth + "/" + i + "/" + clsPost.SlugUrl)));
+                                Task.Factory.StartNew(() => _iapiPlugin.pagePublish(clsPost.OdiaTitle, (webadrs + "/article/" + category + "/" + clsPost.PostedYear + "/" + clsPost.PostedMonth + "/" + i + "/" + clsPost.SlugUrl)));
                             }
                         }
                     }
@@ -269,9 +284,9 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
-        public JsonResult ImageDelete(string imagePath)
+        public JsonResult ImageDelete([FromBody] ClsImage clsImage)
         {
-            DeleteImage(imagePath);
+            DeleteImage(clsImage.imagePath);
             return Json(null);
         }
         [HttpGet]
@@ -358,11 +373,11 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdatePost(ClsPost clsPost)
+        public JsonResult UpdatePost([FromBody]ClsPost clsPost)
         {
             try
             {
-                var currentUser = (ClaimsPrincipal)Thread.CurrentPrincipal;
+                var currentUser = HttpContext.User;
                 var UserId = currentUser.Claims.Where(x => x.Type == ClaimTypes.PrimarySid).Select(c => c.Value).SingleOrDefault();
                 var Role = currentUser.Claims.Where(x => x.Type == ClaimTypes.Role).Select(c => c.Value).SingleOrDefault();
                 clsPost.IsReviewed = false;
@@ -382,7 +397,7 @@ namespace BlogApp.Controllers
                     IsReviewed = newsPost.IsReviewed.Value;
                     newsPost.EnglishTitle = clsPost.EnglishTitle;
                     newsPost.OdiaTitle = clsPost.OdiaTitle;
-                    newsPost.EngShortDesc = clsPost.EngShortDesc;
+                    newsPost.EngShortDesc = clsPost.ODShortDesc;
                     newsPost.OdshortDesc = clsPost.ODShortDesc;
                     newsPost.SeoMeta = clsPost.SeoMeta;
                     newsPost.Tags = clsPost.Tags;
@@ -396,7 +411,7 @@ namespace BlogApp.Controllers
                     newsPost.Thumbnail210 = clsPost.ImageName.Replace("Img", "Thumbnail_210x136");
                     newsPost.Thumbnail279 = clsPost.ImageName.Replace("Img", "Thumbnail_279x220");
                     newsPost.SlugUrl = UrlGenerator.GetUrl(clsPost.EnglishTitle);
-                    _newsPost.Insert(newsPost);
+                    _newsPost.Edit(newsPost);
                     _newsPost.Save();
                     //if(IsReviewed==false)
                     {
@@ -404,7 +419,7 @@ namespace BlogApp.Controllers
                         {
                             string category = _newsType.GetByID(x => x.Id == newsPost.CategoryId).NewsType;
                             var webadrs = _configuration.GetSection("webid");
-                            Task.Factory.StartNew(() => _iapiPlugin.pagePublish(newsPost.OdiaTitle, (webadrs + "/News/" + category + "/" + newsPost.PostedYear + "/" + newsPost.PostedMonth + "/" + clsPost.Id + "/" + newsPost.SlugUrl)));
+                            Task.Factory.StartNew(() => _iapiPlugin.pagePublish(newsPost.OdiaTitle, (webadrs + "/article/" + category + "/" + newsPost.PostedYear + "/" + newsPost.PostedMonth + "/" + clsPost.Id + "/" + newsPost.SlugUrl)));
                         }
                     }
                 
@@ -479,7 +494,7 @@ namespace BlogApp.Controllers
                      _newsPost.Save();
                     string category = _newsType.GetByID(x => x.Id == newsPost.CategoryId).NewsType;
                     var webadrs = _configuration.GetSection("webid");
-                    Task.Factory.StartNew(() => _iapiPlugin.pagePublish(newsPost.OdiaTitle, (webadrs + "/News/" + category + "/" + newsPost.PostedYear + "/" + newsPost.PostedMonth + "/" + Id + "/" + newsPost.SlugUrl)));
+                    Task.Factory.StartNew(() => _iapiPlugin.pagePublish(newsPost.OdiaTitle, (webadrs + "/article/" + category + "/" + newsPost.PostedYear + "/" + newsPost.PostedMonth + "/" + Id + "/" + newsPost.SlugUrl)));
                 
                 Task.Factory.StartNew(() => _newsOprations.UpdateData());
 
@@ -495,7 +510,7 @@ namespace BlogApp.Controllers
         {
             try
             {
-                var currentUser = (ClaimsPrincipal)Thread.CurrentPrincipal;
+                var currentUser = HttpContext.User;
                 var UserId = currentUser.Claims.Where(x => x.Type == ClaimTypes.PrimarySid).Select(c => c.Value).SingleOrDefault();
                 if (mode != "mine")
                 {

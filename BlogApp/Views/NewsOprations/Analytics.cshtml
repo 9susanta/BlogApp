@@ -177,14 +177,14 @@
                         $scope.disMine = true;
                     }
                     NewsPostFc.query({ mode: mode }).$promise.then(function (data) {
-                        $scope.Chart1(data.TdayYday);
-                        $scope.Chart2(data.Wkly);
-                        $scope.Chart3(data.Monthly);
-                        $scope.Chart4(data.DayView);
-                        $scope.Chart5(data.WkView);
-                        $scope.Chart6(data.MonthView);
-                        $scope.Chart7(data.TotPst);
-                        $scope.Chart8(data.TotView);
+                        $scope.Chart1(data.tdayYday);
+                        $scope.Chart2(data.wkly);
+                        $scope.Chart3(data.monthly);
+                        $scope.Chart4(data.dayView);
+                        $scope.Chart5(data.wkView);
+                        $scope.Chart6(data.monthView);
+                        $scope.Chart7(data.totPst);
+                        $scope.Chart8(data.totView);
                         loaderHide();
                     }, function (error) {
                         console.log(error);
@@ -202,15 +202,15 @@
                     var prevdata = [];
                     $scope.TodayTotal = 0;
                     for (var i = 0; i < item.length; i++) {
-                        if (!lables.includes(item[i].OdiaName)) {
-                            lables.push(item[i].OdiaName);
+                        if (!lables.includes(item[i].odiaName)) {
+                            lables.push(item[i].odiaName);
                         }
                         if (item[i].staus != "prev") {
-                            curdata.push(item[i].TotView);
-                            $scope.TodayTotal = $scope.TodayTotal + parseInt(item[i].TotView);
+                            curdata.push(item[i].totView);
+                            $scope.TodayTotal = $scope.TodayTotal + parseInt(item[i].totView);
                         }
                         else {
-                            prevdata.push(item[i].TotView);
+                            prevdata.push(item[i].totView);
                         }
 
                     }
@@ -271,14 +271,14 @@
                     var curdata = [];
                     var prevdata = [];
                     for (var i = 0; i < item.length; i++) {
-                        if (!lables.includes(item[i].OdiaName)) {
-                            lables.push(item[i].OdiaName);
+                        if (!lables.includes(item[i].odiaName)) {
+                            lables.push(item[i].odiaName);
                         }
                         if (item[i].staus != "prev") {
-                            curdata.push(item[i].TotView);
+                            curdata.push(item[i].totView);
                         }
                         else {
-                            prevdata.push(item[i].TotView);
+                            prevdata.push(item[i].totView);
                         }
 
                     }
@@ -342,14 +342,14 @@
                     var curdata = [];
                     var prevdata = [];
                     for (var i = 0; i < item.length; i++) {
-                        if (!lables.includes(item[i].OdiaName)) {
-                            lables.push(item[i].OdiaName);
+                        if (!lables.includes(item[i].odiaName)) {
+                            lables.push(item[i].odiaName);
                         }
                         if (item[i].staus != "prev") {
-                            curdata.push(item[i].TotView);
+                            curdata.push(item[i].totView);
                         }
                         else {
-                            prevdata.push(item[i].TotView);
+                            prevdata.push(item[i].totView);
                         }
 
                     }
@@ -413,15 +413,15 @@
                     var prevdata = [];
                     $scope.TodayView = 0;
                     for (var i = 0; i < item.length; i++) {
-                        if (!lables.includes(item[i].OdiaName)) {
-                            lables.push(item[i].OdiaName);
+                        if (!lables.includes(item[i].odiaName)) {
+                            lables.push(item[i].odiaName);
                         }
                         if (item[i].staus != "prev") {
-                            curdata.push(item[i].TotView);
-                            $scope.TodayView = $scope.TodayView + parseInt(item[i].TotView);
+                            curdata.push(item[i].totView);
+                            $scope.TodayView = $scope.TodayView + parseInt(item[i].totView);
                         }
                         else {
-                            prevdata.push(item[i].TotView);
+                            prevdata.push(item[i].totView);
                         }
 
                     }
@@ -484,14 +484,14 @@
                     var curdata = [];
                     var prevdata = [];
                     for (var i = 0; i < item.length; i++) {
-                        if (!lables.includes(item[i].OdiaName)) {
-                            lables.push(item[i].OdiaName);
+                        if (!lables.includes(item[i].odiaName)) {
+                            lables.push(item[i].odiaName);
                         }
                         if (item[i].staus != "prev") {
-                            curdata.push(item[i].TotView);
+                            curdata.push(item[i].totView);
                         }
                         else {
-                            prevdata.push(item[i].TotView);
+                            prevdata.push(item[i].totView);
                         }
 
                     }
@@ -554,14 +554,14 @@
                     var curdata = [];
                     var prevdata = [];
                     for (var i = 0; i < item.length; i++) {
-                        if (!lables.includes(item[i].OdiaName)) {
-                            lables.push(item[i].OdiaName);
+                        if (!lables.includes(item[i].odiaName)) {
+                            lables.push(item[i].odiaName);
                         }
                         if (item[i].staus != "prev") {
-                            curdata.push(item[i].TotView);
+                            curdata.push(item[i].totView);
                         }
                         else {
-                            prevdata.push(item[i].TotView);
+                            prevdata.push(item[i].totView);
                         }
 
                     }
@@ -624,11 +624,11 @@
                     var data = [];
                     $scope.TotalPost = 0;
                     for (var i = 0; i < item.length; i++) {
-                        if (!lables.includes(item[i].OdiaName)) {
-                            lables.push(item[i].OdiaName);
+                        if (!lables.includes(item[i].odiaName)) {
+                            lables.push(item[i].odiaName);
                         }
-                        data.push(item[i].TotView)
-                        $scope.TotalPost = $scope.TotalPost+parseInt(item[i].TotView);
+                        data.push(item[i].totView)
+                        $scope.TotalPost = $scope.TotalPost+parseInt(item[i].totView);
 
                     }
 
@@ -663,11 +663,11 @@
                     var data = [];
                     $scope.TotalView = 0;
                     for (var i = 0; i < item.length; i++) {
-                        if (!lables.includes(item[i].OdiaName)) {
-                            lables.push(item[i].OdiaName);
+                        if (!lables.includes(item[i].odiaName)) {
+                            lables.push(item[i].odiaName);
                         }
-                        data.push(item[i].TotView)
-                        $scope.TotalView = $scope.TotalView + parseInt(item[i].TotView);
+                        data.push(item[i].totView)
+                        $scope.TotalView = $scope.TotalView + parseInt(item[i].totView);
 
                     }
                     var ctx7 = document.getElementById('myChart7');

@@ -13,7 +13,7 @@
                         <div ng-repeat="latest in LatestData" class="carousel-item" ng-class="{active: ($index === 0)}">
                             <img src="{{url}}/Uploads/{{latest.Thumbnail279}}" alt="Images">
                             <div class="carousel-caption">
-                                <h5><a class="text-white" href="{{url}}/News/{{latest.NewsType}}/{{latest.PostedYear}}/{{latest.PostedMonth}}/{{latest.Id}}/{{latest.SlugUrl}}">{{latest.OdiaTitle}}</a></h5>
+                                <h5><a class="text-white" href="{{url}}/article/{{latest.NewsType}}/{{latest.PostedYear}}/{{latest.PostedMonth}}/{{latest.Id}}/{{latest.SlugUrl}}">{{latest.OdiaTitle}}</a></h5>
                             </div>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                 <div ng-repeat="latest in LatestData" class="col-lg-12 col-sm-12 col-xl-12">
                     <div class="row">
                         <div class="col-12 npborder-bottom np-zeropadding" ng-class="{'magin-top':($index !== 0)}">
-                            <span><a class="text-dark" href="{{url}}/News/{{latest.NewsType}}/{{latest.PostedYear}}/{{latest.PostedMonth}}/{{latest.Id}}/{{latest.SlugUrl}}">{{(latest.OdiaTitle | limitTo: 50)}}<span class="dot">{{(latest.OdiaTitle.length > 50 ? '...' : '')}}</span></a></span>
+                            <span><a class="text-dark" href="{{url}}/article/{{latest.NewsType}}/{{latest.PostedYear}}/{{latest.PostedMonth}}/{{latest.Id}}/{{latest.SlugUrl}}">{{(latest.OdiaTitle | limitTo: 50)}}<span class="dot">{{(latest.OdiaTitle.length > 50 ? '...' : '')}}</span></a></span>
                         </div>
                     </div>
                 </div>
@@ -59,33 +59,16 @@
                 </div>
                 <div class="row no-gutters" id="topsec">
                     <div ng-repeat="latest in LatestData" class="col-lg-2 col-12 col-sm-6 col-xl-2 mx-auto">
-                        <a href="{{url}}/News/{{latest.NewsType}}/{{latest.PostedYear}}/{{latest.PostedMonth}}/{{latest.Id}}/{{latest.SlugUrl}}"><img bn-lazy-src="{{url}}/Uploads/{{latest.Thumbnail210}}" alt="Images"></a>
+                        <a href="{{url}}/article/{{latest.NewsType}}/{{latest.PostedYear}}/{{latest.PostedMonth}}/{{latest.Id}}/{{latest.SlugUrl}}"><img bn-lazy-src="{{url}}/Uploads/{{latest.Thumbnail210}}" alt="Images"></a>
                         <span class="spancat spancat-2 ng-binding">{{latest.Category}}</span>
                         <div>
-                            <h5 class="news-1"><a class="text-dark" href="{{url}}/News/{{latest.NewsType}}/{{latest.PostedYear}}/{{latest.PostedMonth}}/{{latest.Id}}/{{latest.SlugUrl}}">{{(latest.OdiaTitle | limitTo: 50)}}<span class="dot">{{(latest.OdiaTitle.length > 50 ? '...' : '')}}</span></a></h5>
+                            <h5 class="news-1"><a class="text-dark" href="{{url}}/article/{{latest.NewsType}}/{{latest.PostedYear}}/{{latest.PostedMonth}}/{{latest.Id}}/{{latest.SlugUrl}}">{{(latest.OdiaTitle | limitTo: 50)}}<span class="dot">{{(latest.OdiaTitle.length > 50 ? '...' : '')}}</span></a></h5>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        @*<div class="row">
-            <div class="col-lg-12 tealback">
-                <h3 class="text-light np-header">- ଫଟୋ ଖବର -</h3>
-                <div class="row no-gutters" id="topsecone">
-                    <div ng-repeat="latest in PhtNews" class="col-lg-2 col-sm-6 col-xl-2">
-                        <a href="{{url}}/News/{{latest.NewsType}}/{{latest.PostedYear}}/{{latest.PostedMonth}}/{{latest.Id}}/{{latest.SlugUrl}}"><img bn-lazy-src="~/Uploads/{{latest.Thumbnail210}}" alt="Images"></a>
-                        <div>
-                            <h5 class="news-1"><a class="text-light" href="{{url}}/News/{{latest.NewsType}}/{{latest.PostedYear}}/{{latest.PostedMonth}}/{{latest.Id}}/{{latest.SlugUrl}}">{{(latest.OdiaTitle | limitTo: 50)}}<span class="dot">{{(latest.OdiaTitle.length > 50 ? '...' : '')}}</span></a></h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="row no-gutters">
-                    <div class="col-lg-12 text-center">
-                        <button class="btn bg-teal text-light np-btn" ng-disabled="btnpht" ng-click="LoadMore('Photo')">ଅଧିକ ଖବର...</button>
-                    </div>
-                </div>
-            </div>
-        </div>*@
+        
         <div class="row newsmargin">
             <div class="col-lg-12 col-sm-12 col-xs-12">
                 <div ng-repeat="menu in lvMenu" ng-if="$index % 3 == 0" class="row npborder npmr-top nppadding-tpbtm">
@@ -105,12 +88,12 @@
                             <div ng-repeat="data in HomeData | filter : {CategoryId:lvMenu[$index].Id}" class="col-lg-12 col-sm-12 col-xl-12">
                                 <div class="row no-gutters">
                                     <div class="col-3 newsminhigt" ng-if="$index == 0">
-                                        <a href="{{url}}/News/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}"><img bn-lazy-src="~/Uploads/{{data.Thumbnail86}}" /></a>
+                                        <a href="{{url}}/article/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}"><img bn-lazy-src="Uploads/{{data.Thumbnail86}}" /></a>
                                     </div>
                                     <div class="col-9 margin_div ns-btmtop" ng-if="$index == 0">
                                         <div class="row no-gutters ">
                                             <div class="col-12">
-                                                <h5 class="news-1"><a class="text-dark" href="{{url}}/News/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}">{{(data.OdiaTitle | limitTo: 50)}}<span class="dot">{{(data.OdiaTitle.length > 50 ? '...' : '')}}</span></a></h5>
+                                                <h5 class="news-1"><a class="text-dark" href="{{url}}/article/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}">{{(data.OdiaTitle | limitTo: 50)}}<span class="dot">{{(data.OdiaTitle.length > 50 ? '...' : '')}}</span></a></h5>
                                             </div>
                                         </div>
                                         <div class="row fristnew no-gutters ">
@@ -120,7 +103,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 npborder-bottom" ng-if="$index != 0">
-                                        <span><a class="text-dark" href="{{url}}/News/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}">{{(data.OdiaTitle | limitTo: 50)}}<span class="dot">{{(data.OdiaTitle.length > 50 ? '...' : '')}}</span></a></span>
+                                        <span><a class="text-dark" href="{{url}}/article/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}">{{(data.OdiaTitle | limitTo: 50)}}<span class="dot">{{(data.OdiaTitle.length > 50 ? '...' : '')}}</span></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -142,12 +125,12 @@
                             <div ng-repeat="data in HomeData | filter : {CategoryId:lvMenu[$index+1].Id}" class="col-lg-12 col-sm-12 col-xl-12">
                                 <div class="row no-gutters">
                                     <div class="col-3 newsminhigt" ng-if="$index == 0">
-                                        <a href="{{url}}/News/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}"><img bn-lazy-src="~/Uploads/{{data.Thumbnail86}}" /></a>
+                                        <a href="{{url}}/article/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}"><img bn-lazy-src="Uploads/{{data.Thumbnail86}}" /></a>
                                     </div>
                                     <div class="col-9 margin_div ns-btmtop" ng-if="$index == 0">
                                         <div class="row no-gutters">
                                             <div class="col-12">
-                                                <h5 class="news-1"><a class="text-dark" href="{{url}}/News/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}">{{(data.OdiaTitle | limitTo: 50)}}<span class="dot">{{(data.OdiaTitle.length > 50 ? '...' : '')}}</span></a></h5>
+                                                <h5 class="news-1"><a class="text-dark" href="{{url}}/article/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}">{{(data.OdiaTitle | limitTo: 50)}}<span class="dot">{{(data.OdiaTitle.length > 50 ? '...' : '')}}</span></a></h5>
                                             </div>
                                         </div>
                                         <div class="row fristnew no-gutters">
@@ -157,7 +140,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 npborder-bottom" ng-if="$index != 0">
-                                        <span><a class="text-dark" href="{{url}}/News/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}">{{(data.OdiaTitle | limitTo: 50)}}<span class="dot">{{(data.OdiaTitle.length > 50 ? '...' : '')}}</span></a></span>
+                                        <span><a class="text-dark" href="{{url}}/article/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}">{{(data.OdiaTitle | limitTo: 50)}}<span class="dot">{{(data.OdiaTitle.length > 50 ? '...' : '')}}</span></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -179,12 +162,12 @@
                             <div ng-repeat="data in HomeData | filter : {CategoryId:lvMenu[$index+2].Id}" class="col-lg-12 col-sm-12 col-xl-12">
                                 <div class="row no-gutters">
                                     <div class="col-3 newsminhigt" ng-if="$index == 0">
-                                        <a href="{{url}}/News/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}"><img bn-lazy-src="~/Uploads/{{data.Thumbnail86}}" /></a>
+                                        <a href="{{url}}/article/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}"><img bn-lazy-src="Uploads/{{data.Thumbnail86}}" /></a>
                                     </div>
                                     <div class="col-9 margin_div ns-btmtop" ng-if="$index == 0">
                                         <div class="row no-gutters">
                                             <div class="col-12">
-                                                <h5 class="news-1"><a class="text-dark" href="{{url}}/News/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}">{{(data.OdiaTitle | limitTo: 50)}}<span class="dot">{{(data.OdiaTitle.length > 50 ? '...' : '')}}</span></a></h5>
+                                                <h5 class="news-1"><a class="text-dark" href="{{url}}/article/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}">{{(data.OdiaTitle | limitTo: 50)}}<span class="dot">{{(data.OdiaTitle.length > 50 ? '...' : '')}}</span></a></h5>
                                             </div>
                                         </div>
                                         <div class="row fristnew no-gutters">
@@ -194,7 +177,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 npborder-bottom" ng-if="$index != 0">
-                                        <span><a class="text-dark" href="{{url}}/News/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}">{{(data.OdiaTitle | limitTo: 50)}}<span class="dot">{{(data.OdiaTitle.length > 50 ? '...' : '')}}</span></a></span>
+                                        <span><a class="text-dark" href="{{url}}/article/{{data.NewsType}}/{{data.PostedYear}}/{{data.PostedMonth}}/{{data.Id}}/{{data.SlugUrl}}">{{(data.OdiaTitle | limitTo: 50)}}<span class="dot">{{(data.OdiaTitle.length > 50 ? '...' : '')}}</span></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -229,10 +212,10 @@
                 </div>
                 <div class="row no-gutters" id="topsecone">
                     <div ng-repeat="latest in PlrNews" class="col-lg-2 col-12 col-sm-6 col-xl-2 mx-auto">
-                        <a class="text-dark" href="{{url}}/News/{{latest.NewsType}}/{{latest.PostedYear}}/{{latest.PostedMonth}}/{{latest.Id}}/{{latest.SlugUrl}}"><img bn-lazy-src="~/Uploads/{{latest.Thumbnail210}}" alt="Images" /></a>
+                        <a class="text-dark" href="{{url}}/article/{{latest.NewsType}}/{{latest.PostedYear}}/{{latest.PostedMonth}}/{{latest.Id}}/{{latest.SlugUrl}}"><img bn-lazy-src="Uploads/{{latest.Thumbnail210}}" alt="Images" /></a>
                         <span class="spancat spancat-2 ng-binding">{{latest.Category}}</span>
                         <div>
-                            <h5 class="news-1"><a class="text-dark" href="{{url}}/News/{{latest.NewsType}}/{{latest.PostedYear}}/{{latest.PostedMonth}}/{{latest.Id}}/{{latest.SlugUrl}}">{{(latest.OdiaTitle | limitTo: 50)}}<span class="dot">{{(latest.OdiaTitle.length > 50 ? '...' : '')}}</span></a></h5>
+                            <h5 class="news-1"><a class="text-dark" href="{{url}}/article/{{latest.NewsType}}/{{latest.PostedYear}}/{{latest.PostedMonth}}/{{latest.Id}}/{{latest.SlugUrl}}">{{(latest.OdiaTitle | limitTo: 50)}}<span class="dot">{{(latest.OdiaTitle.length > 50 ? '...' : '')}}</span></a></h5>
                         </div>
                     </div>
                 </div>

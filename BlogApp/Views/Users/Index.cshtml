@@ -42,7 +42,7 @@
                             <label>Role</label>
                             <select id="ddlRole" ng-model="selectedRole" class="form-control nw-text form-control-sm" ng-init="selectedRole='0'">
                                 <option value="0">{{DefaultLabel}}</option>
-                                <option value="{{val.RoleId}}" ng-repeat="val in RoleData">{{val.RoleName}}</option>
+                                <option value="{{val.roleId}}" ng-repeat="val in RoleData">{{val.roleName}}</option>
                             </select>
                         </div>
                     </div>
@@ -73,26 +73,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="item in Data" data-id="{{item.UserId}}">
+                                    <tr ng-repeat="item in Data" data-id="{{item.userId}}">
                                         <td>{{$index+1}}</td>
                                         <td>
-                                            <span ng-hide="item.EditMode">{{item.FullName}}</span>
-                                            <input type="text" ng-model="item.FullName" ng-show="item.EditMode" class="form-control nw-text form-control-sm" />
+                                            <span ng-hide="item.EditMode">{{item.fullName}}</span>
+                                            <input type="text" ng-model="item.fullName" ng-show="item.EditMode" class="form-control nw-text form-control-sm" />
                                         </td>
                                         <td>
-                                            <span>{{item.UserName}}</span>
+                                            <span>{{item.userName}}</span>
                                         </td>
                                         <td>
-                                            <span ng-hide="item.EditMode">{{item.Email}}</span>
-                                            <input type="text" ng-model="item.Email" ng-show="item.EditMode" class="form-control nw-text form-control-sm" />
+                                            <span ng-hide="item.EditMode">{{item.email}}</span>
+                                            <input type="text" ng-model="item.email" ng-show="item.EditMode" class="form-control nw-text form-control-sm" />
                                         </td>
                                         <td>
-                                            <span ng-hide="item.EditMode">{{item.Phone}}</span>
-                                            <input type="text" ng-model="item.Phone" ng-show="item.EditMode" class="form-control nw-text form-control-sm" />
+                                            <span ng-hide="item.EditMode">{{item.phone}}</span>
+                                            <input type="text" ng-model="item.phone" ng-show="item.EditMode" class="form-control nw-text form-control-sm" />
                                         </td>
                                         <td>
-                                            <span ng-hide="item.EditMode&&item.RoleId!=1">{{roleFilter(item.RoleId)}}</span>
-                                            <select ng-model="item.RoleId" ng-show="item.EditMode&&item.RoleId!=1" class="form-control nw-text form-control-sm">
+                                            <span ng-hide="item.EditMode&&item.roleId!=1">{{roleFilter(item.roleId)}}</span>
+                                            <select ng-model="item.roleId" ng-show="item.EditMode&&item.roleId!=1" class="form-control nw-text form-control-sm">
                                                 <option value="0">{{DefaultLabel}}</option>
                                                 <option ng-model="item.RoleId" value="{{items.RoleId}}" ng-selected="items.RoleId==selectRole" ng-repeat="items in RoleData">{{items.RoleName}}</option>
                                             </select>
@@ -105,10 +105,10 @@
                                             <a href="javascript:;" class="btn btn btn-pink text-light np-btn btn-pad" ng-hide="item.EditMode" ng-click="Delete(item.UserId)">Delete</a>
                                         </td>
                                         <td>
-                                            <a class="Reset btn btn-bg-12 text-light np-btn btn-pad" href="javascript:;" ng-click="Reset(item.UserId)">Reset</a>
+                                            <a class="Reset btn btn-bg-12 text-light np-btn btn-pad" href="javascript:;" ng-click="Reset(item.userId)">Reset</a>
                                         </td>
                                         <td>
-                                            <a class="Block btn btn-bg-13 text-light np-btn btn-pad" href="javascript:;" ng-click="Block(item.UserId,items.IsBlocked)">{{items.IsBlocked==true?'Blocked':'Unblock'}}</a>
+                                            <a class="Block btn btn-bg-13 text-light np-btn btn-pad" href="javascript:;" ng-click="Block(item.userId,items.isBlocked)">{{items.isBlocked==true?'Blocked':'Unblock'}}</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -198,10 +198,10 @@
                 page = page || 0;
                 $scope.isSearching = true;
                 Users.query({ page: page, pageSize: 8 }).$promise.then(function (data) {
-                    $scope.page = data.Page;
-                    $scope.pagesCount = data.TotalPages;
-                    $scope.totalCount = data.TotalCount;
-                    $scope.Data = data.Items;
+                    $scope.page = data.page;
+                    $scope.pagesCount = data.totalPages;
+                    $scope.totalCount = data.totalCount;
+                    $scope.Data = data.items;
                     $scope.isSearching = false;
                     loaderHide();
                 }, function (error) {
@@ -273,17 +273,17 @@
             $scope.EditItem = {};
             $scope.Edit = function (index) {
                 $scope.Data[index].EditMode = true;
-                $scope.EditItem.FullName = $scope.Data[index].FullName;
-                $scope.EditItem.Mobile = $scope.Data[index].Mobile;
-                $scope.EditItem.Email = $scope.Data[index].Email;
-                $scope.EditItem.RoleId = $scope.Data[index].RoleId;
-                $scope.selectRole = $scope.Data[index].RoleId;
+                $scope.EditItem.FullName = $scope.Data[index].fullName;
+                $scope.EditItem.Mobile = $scope.Data[index].mobile;
+                $scope.EditItem.Email = $scope.Data[index].email;
+                $scope.EditItem.RoleId = $scope.Data[index].roleId;
+                $scope.selectRole = $scope.Data[index].roleId;
             };
             $scope.Cancel = function (index) {
-                $scope.Data[index].FullName = $scope.EditItem.FullName;
-                $scope.Data[index].Mobile = $scope.EditItem.Mobile;
-                $scope.Data[index].Email = $scope.EditItem.Email;
-                $scope.Data[index].RoleId = $scope.EditItem.RoleId;
+                $scope.Data[index].fullName = $scope.EditItem.FullName;
+                $scope.Data[index].mobile = $scope.EditItem.Mobile;
+                $scope.Data[index].email = $scope.EditItem.Email;
+                $scope.Data[index].roleId = $scope.EditItem.RoleId;
                 $scope.Data[index].EditMode = false;
                 $scope.EditItem = {};
             };
@@ -352,7 +352,7 @@
                     obj.Id = userId;
                     Users.delete(JSON.stringify(obj)).$promise.then(function (data) {
                         $scope.Data = $scope.Data.filter(function (_user) {
-                            return _user.RoleId !== userId;
+                            return _user.roleId !== userId;
                         })
                         $scope.search();
                     });
@@ -368,10 +368,10 @@
             $scope.roleFilter = function (RoleId) {
                 if ($scope.RoleItems.Items != undefined) {
                     var flterdata = $scope.RoleItems.Items.filter(function (item) {
-                        return item.RoleId == RoleId;
+                        return item.roleId == RoleId;
                     });
                     if (flterdata[0] != undefined) {
-                        return flterdata[0].RoleName;
+                        return flterdata[0].roleName;
                     }
                     else {
                         return '';

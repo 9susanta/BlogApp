@@ -80,8 +80,8 @@
                                                 <input type="text" ng-model="item.odiaName" ng-show="item.EditMode" class="form-control nw-text" />
                                             </td>
                                             <td>
-                                                <span ng-hide="item.EditMode">{{item.IsMenu==true?'Yes':'No'}}</span>
-                                                <input type="checkbox" ng-model="item.IsMenu" ng-show="item.EditMode" class="form-check-input" />
+                                                <span ng-hide="item.EditMode">{{item.isMenu==true?'Yes':'No'}}</span>
+                                                <input type="checkbox" ng-model="item.isMenu" ng-show="item.EditMode" class="form-check-input" />
                                             </td>
                                             <td>
                                                 <a class="Edit btn btn-bg-11 text-light np-btn btn-pad" href="javascript:;" ng-hide="item.EditMode" ng-click="Edit($index)">Edit</a>
@@ -218,15 +218,15 @@
             $scope.EditItem = {};
             $scope.Edit = function (index) {
                 $scope.Data[index].EditMode = true;
-                $scope.EditItem.NewsType = $scope.Data[index].NewsType;
-                $scope.EditItem.OdiaName = $scope.Data[index].OdiaName;
-                $scope.EditItem.IsMenu = $scope.Data[index].IsMenu;
+                $scope.EditItem.NewsType = $scope.Data[index].newsType;
+                $scope.EditItem.OdiaName = $scope.Data[index].odiaName;
+                $scope.EditItem.IsMenu = $scope.Data[index].isMenu;
 
             };
             $scope.Cancel = function (index) {
-                $scope.Data[index].NewsType = $scope.EditItem.NewsType;
-                $scope.Data[index].OdiaName = $scope.EditItem.OdiaName;
-                $scope.Data[index].IsMenu = $scope.EditItem.IsMenu;
+                $scope.Data[index].NewsType = $scope.EditItem.newsType;
+                $scope.Data[index].OdiaName = $scope.EditItem.odiaName;
+                $scope.Data[index].IsMenu = $scope.EditItem.isMenu;
                 $scope.Data[index].EditMode = false;
                 $scope.EditItem = {};
             };
@@ -238,10 +238,10 @@
                 if (newstype.NewsType == "") {
                     return;
                 }
-                _newstype.NewsTypeId = newstype.Id;
-                _newstype.NewsTypeName = newstype.NewsType;
-                _newstype.NewsTypeOdia = newstype.OdiaName;
-                _newstype.IsMenu = newstype.IsMenu;
+                _newstype.NewsTypeId = newstype.id;
+                _newstype.NewsTypeName = newstype.newsType;
+                _newstype.NewsTypeOdia = newstype.odiaName;
+                _newstype.IsMenu = newstype.isMenu;
                 NewsType.update(JSON.stringify(_newstype)).$promise.then(function (data) {
                     loaderHide();
                     if (data.msg != undefined) {
@@ -258,7 +258,7 @@
                 if ($window.confirm("Do you want to delete this row?")) {
                     loaderShow();
                     var obj = {};
-                    obj.Id = newstypeId;
+                    obj.NewsTypeId = newstypeId;
 
                     NewsType.delete(JSON.stringify(obj)).$promise.then(function (data) {
                         $scope.Data = $scope.Data.filter(function (_newstype) {

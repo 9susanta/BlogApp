@@ -29,7 +29,7 @@ namespace BlogApp.Controllers
             return Json(listRole.Get(page, pageSize, model));
         }
         [HttpPost]
-        public JsonResult InsertRole(clsRole _role)
+        public JsonResult InsertRole([FromBody]clsRole _role)
         {
             Tblrole lang = new Tblrole();
             lang.RoleName = _role.RoleName;
@@ -39,7 +39,7 @@ namespace BlogApp.Controllers
             return Json(lang);
         }
         [HttpPost]
-        public JsonResult UpdateRole(clsRole _role)
+        public JsonResult UpdateRole([FromBody]clsRole _role)
         {
             Tblrole lang = _userrole.GetByID(x => x.RoleId == _role.RoleId);
             lang.RoleName = _role.RoleName;
